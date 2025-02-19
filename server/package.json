@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Self-hosted server for hosting the Chat UI for your VitePress website",
   "scripts": {
-    "dev": "bun run --watch src/main.ts"
+    "dev": "bun run --watch src/main.ts",
+    "build": "rm -rf dist && bun build --target=bun --outdir=dist --sourcemap=external src/main.ts && cp -r public dist",
+    "docker:build": "cd .. && docker build -t vitepress-knowledge-server .",
+    "docker:push": "docker tag vitepress-knowledge-server aklinker1/vitepress-knowledge-server && docker push aklinker1/vitepress-knowledge-server"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",
