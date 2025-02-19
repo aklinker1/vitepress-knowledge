@@ -157,7 +157,7 @@ styles.innerHTML = `
   height: 24px;
   left: -40px;
   bottom: 0;
-  background-image: url('https://wxt.dev/logo.svg');
+  background-image: url('{{ ASSISTANT_ICON_URL }}');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -372,11 +372,12 @@ function chatWindow() {
   messagesDiv.classList.add("chat-window-messages-section");
   const messagesContainer = document.createElement("div");
   messagesContainer.innerHTML = `
-    <small class="powered-by">Powered by <a class="chat-link" href="${vitepressKnowledgeUrl}" target="_blank">vitepress-knowledge</a></small>
+    <small class="powered-by">
+      Powered by
+      <a class="chat-link" href="${vitepressKnowledgeUrl}" target="_blank">vitepress-knowledge</a>
+    </small>
     <div class="chat-message assistant">
-      <p>Hi!</p>
-      <p>I'm an AI assistant trained on WXT's documentation.</p>
-      <p>Ask me anything about <code>WXT</code>.</p>
+      {{ WELCOME_MESSAGE }}
     </div>
   `;
   messagesDiv.append(messagesContainer);

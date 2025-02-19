@@ -15,17 +15,9 @@ import pc from "picocolors";
 import { consola } from "consola";
 import { getKnowledgeFiles } from "./knowledge-files";
 import cors from "@elysiajs/cors";
+import * as env from "./env";
 
 consola.info("Starting server...");
-
-const docsUrl = (process.env.DOCS_URL || "http://localhost:5173")
-  // Trim trailing /
-  .replace(/\/$/, "");
-const corsOrigin = (process.env.CORS_ORIGIN || docsUrl)
-  // Remove protocol
-  .replace(/^.*:\/\//, "")
-  // Trim trailing /
-  .replace(/\/$/, "");
 
 function getRequestColor(method: string) {
   switch (method.toUpperCase()) {
@@ -45,7 +37,7 @@ function getRequestColor(method: string) {
 const aiModels = AVAILABLE_AI_MODELS.map((model) => ({
   name: model.name,
   enum: model.enum,
-  enabled: process.env[model.env] === "true",
+  enabled: env[model.env],
 }));
 
 const serviceAuths = SERVICE_AUTH.map((auth) => ({
@@ -53,7 +45,15 @@ const serviceAuths = SERVICE_AUTH.map((auth) => ({
   secret: process.env[auth.env],
 }));
 
-const jsFile = Bun.file("public/index.js");
+const js = Bun.file("public/index.js")
+  .text()
+  .then((template) =>
+    template
+      .replaceAll("{{ WELCOME_MESSAGE }}", env.WELCOME_MESSAGE)
+      .replaceAll("{{ APP_NAME }}", env.APP_NAME)
+      .replaceAll("{{ ASSISTANT_ICON_URL }}", env.ASSISTANT_ICON_URL)
+      .replaceAll("{{ DOMAIN }}", env.DOMAIN),
+  );
 const systemMessageFile = Bun.file("public/system-message.txt");
 
 let app = new Elysia()
@@ -68,7 +68,7 @@ let app = new Elysia()
       },
     }),
   )
-  .use(cors({ origin: corsOrigin }))
+  .use(cors({ origin: env.CORS_ORIGIN }))
   .onBeforeHandle(({ path, request }) => {
     consola.info(
       `${pc.cyan("[http]")} ${getRequestColor(request.method)(request.method)} ${path}`,
@@ -77,7 +77,7 @@ let app = new Elysia()
   .get(
     "/",
     async () => {
-      return new Response(jsFile, {
+      return new Response(await js, {
         headers: { "Content-Type": "application/javascript" },
       });
     },
@@ -128,7 +128,6 @@ let app = new Elysia()
   .post(
     "/api/chat",
     async ({ body, error }) => {
-      console.log(1);
       const model = aiModels.find((model) => model.enum === body.model);
       if (!model) return error(400, `No model found with enum "${body.model}"`);
       if (!model.enabled)
@@ -144,9 +143,13 @@ let app = new Elysia()
           `Auth not provided for service "${auth.enum}". Did you forget to set the \"${auth.env}\" environment variable?`,
         );
 
-      console.log(2);
-      const knowledge = await getKnowledgeFiles(docsUrl);
-      console.log(3);
+      const knowledge = await getKnowledgeFiles(env.DOCS_URL);
+
+      const systemPrompt = env.SYSTEM_PROMPT
+        // Prompt vars:
+        .replaceAll("{{ APP_NAME }}", env.APP_NAME)
+        .replaceAll("{{ DOMAIN }}", env.DOMAIN)
+        .replaceAll("{{ KNOWLEDGE }}", knowledge.files.join("\n\n"));
 
       switch (auth.enum) {
         case "anthropic": {
@@ -163,15 +166,7 @@ let app = new Elysia()
               system: [
                 {
                   type: "text",
-                  text: await systemMessageFile.text(),
-                },
-                {
-                  type: "text",
-                  text: knowledge.files.join("\n\n"),
-                },
-                {
-                  type: "text",
-                  text: "From here on out, respond as if a developer has asked you a question.",
+                  text: systemPrompt,
                   cache_control: { type: "ephemeral" },
                 },
               ],
@@ -188,7 +183,6 @@ let app = new Elysia()
           ];
         }
         case "google": {
-          console.log(4);
           const res = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/${model.enum}:generateContent?key=${auth.secret}`,
             {
@@ -206,15 +200,7 @@ let app = new Elysia()
                 },
                 systemInstruction: {
                   role: "user",
-                  parts: [
-                    {
-                      text: [
-                        await systemMessageFile.text(),
-                        ...knowledge.files,
-                        "From here on out, respond as if a developer has asked you a question.",
-                      ].join("\n\n"),
-                    },
-                  ],
+                  parts: [{ text: systemPrompt }],
                 },
                 contents: body.messages.map((message) => ({
                   role: message.role === "user" ? "user" : "model",
@@ -223,9 +209,7 @@ let app = new Elysia()
               }),
             },
           );
-          console.log(5);
           const json = await res.json();
-          console.log(6);
           return [
             ...body.messages,
             {
@@ -255,12 +239,20 @@ let app = new Elysia()
     },
   );
 
-consola.info("Config");
+consola.info("Resolved Environment Variables");
+consola.info(`  ${pc.dim("PORT=")}${pc.cyan(env.PORT)}`);
+consola.info(`  ${pc.dim("APP_NAME=")}${pc.cyan(env.APP_NAME)}`);
+consola.info(`  ${pc.dim("DOMAIN=")}${pc.cyan(env.DOMAIN)}`);
+consola.info(`  ${pc.dim("DOCS_URL=")}${pc.cyan(env.DOCS_URL)}`);
+consola.info(`  ${pc.dim("CORS_ORIGIN=")}${pc.cyan(env.CORS_ORIGIN)}`);
 consola.info(
-  `  ${pc.dim("docsUrl=")}${pc.cyan(docsUrl)} ${pc.dim("env=")}${pc.blue("DOCS_URL")}`,
+  `  ${pc.dim("ASSISTANT_ICON_URL=")}${pc.cyan(env.ASSISTANT_ICON_URL)}`,
 );
 consola.info(
-  `  ${pc.dim("corsOrigin=")}${pc.cyan(corsOrigin)} ${pc.dim("env=")}${pc.blue("CORS_ORIGIN")}`,
+  `  ${pc.dim("WELCOME_MESSAGE=")}${pc.cyan(env.WELCOME_MESSAGE.replaceAll("\n", "\\n").slice(0, 70) + "...")}`,
+);
+consola.info(
+  `  ${pc.dim("SYSTEM_PROMPT=")}${pc.cyan(env.SYSTEM_PROMPT.replaceAll("\n", "\\n").slice(0, 70) + "...")}`,
 );
 
 consola.info("AI Models");
@@ -284,10 +276,9 @@ if (noModels) consola.error("You must enable at least one AI model.");
 if (noAuth) consola.error("You must provide auth for at least one service.");
 if (noModels || noAuth) process.exit(1);
 
-const port = Number(process.env.PORT) || 5174;
-const url = `http://localhost:${port}`;
+const url = `http://localhost:${env.PORT}`;
 const openApiUrl = `${url}/swagger`;
 consola.info(`${pc.dim("Server started @")} ${pc.underline(url)}`);
 consola.info(`${pc.dim("OpenAPI docs   @")} ${pc.underline(openApiUrl)}`);
 
-app.listen(port);
+app.listen(env.PORT);
