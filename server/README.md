@@ -3,7 +3,7 @@
 ```yml
 version: "3"
 services:
-  wxt:
+  backend:
     image: aklinker1/vitepress-knowledge:latest
     ports:
       - "3000:3000"

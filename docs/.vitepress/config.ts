@@ -21,11 +21,6 @@ export default defineConfig({
     ["script", { defer: "true", async: "true", src: "http://localhost:5174" }],
   ],
   themeConfig: {
-    logo: {
-      src: "https://wxt.dev/logo.svg",
-      alt: "Logo",
-    },
-
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
