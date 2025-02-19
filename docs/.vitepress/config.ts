@@ -1,25 +1,18 @@
 import { defineConfig } from "vitepress";
-import knowledge from "vitepress-knowledge";
+import knowledge from "../../plugin/src";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "VitePress Knowledge",
   description: "Generate knowledge files for LLMs",
   extends: knowledge({
+    serverUrl: "http://localhost:5174",
     paths: {
       "/": "docs",
       "/api/": "api-reference",
     },
   }),
-  head: [
-    [
-      "script",
-      {
-        src: "https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js",
-      },
-    ],
-    ["script", { defer: "true", async: "true", src: "http://localhost:5174" }],
-  ],
+
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

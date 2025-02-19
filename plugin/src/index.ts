@@ -29,6 +29,21 @@ export default function knowledge<ThemeConfig>(
     // Allow extending another theme/config
     extends: options?.extends,
 
+    // Add necessary scripts for "Ask AI" button
+    head: options?.serverUrl
+      ? [
+          // Showdown is used to render markdown as HTML
+          [
+            "script",
+            {
+              src: "https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js",
+            },
+          ],
+          // Loads the JS that adds the "Ask AI" button and chat window to website
+          ["script", { defer: "true", async: "true", src: options.serverUrl }],
+        ]
+      : [],
+
     // Get HTML page contents as markdown
     transformHtml(code, id, ctx) {
       if (ignore.has(ctx.page)) return;
