@@ -1,5 +1,7 @@
 # VitePress Knowledge
 
+> This page only documents the NPM package options. [See this page to get started](https://github.com/aklinker1/vitepress-knowledge).
+
 ```sh
 pnpm i vitepress-knowledge
 ```
@@ -13,7 +15,6 @@ Generate knowledge files for AI models to use. This plugin works by converting t
 - [ ] Plugin system that allows for
   - Generating more knowledge files based on other sources (discord, github, etc)
   - Uploading knowledge files to to keep models up-to-date with your docs (OpenAI Assistants for example)
-- [ ] Built-in chat UI
 
 ## Setup
 
@@ -25,7 +26,9 @@ Generate knowledge files for AI models to use. This plugin works by converting t
    import knowledge from "vitepress-knowledge";
 
    export default defineConfig({
-     extends: knowledge(),
+     extends: knowledge({
+       // Plugin config goes here...
+     }),
    });
    ```
 
@@ -91,7 +94,7 @@ Any pages not listed in the sidebar are put at the end of the knowledge files, s
 
 ### Selectors
 
-By default, this plugin only adds docs to the knowledge file, ignoring navigation (top nav, sidebar, and aside). To customize which content should be added to the knowledge file, you can use the `selector`, `layoutSelectors`, and `pageSelectors` options.
+By default, this plugin only adds the documentation part of each page to the knowledge file, ignoring navigation (top nav, sidebar, and aside). To customize which content should be added to the knowledge file, you can use the `selector`, `layoutSelectors`, and `pageSelectors` options.
 
 - `pageSelectors`: Specify which content should be added for a specific page
 - `layoutSelectors`: Specify which content should be added for a specific layout (if not specified in the `pageSelectors`)

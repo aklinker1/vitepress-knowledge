@@ -1,21 +1,10 @@
 # VitePress Knowledge Server
 
-```yml
-version: "3"
-services:
-  backend:
-    image: aklinker1/vitepress-knowledge:latest
-    ports:
-      - "3000:3000"
-    environment:
-      APP_NAME: WXT
-      DOMAIN: chat.wxt.dev
-      DOCS_URL: https://wxt.dev
-      GOOGLE_API_KEY: your_google_api_key
-      GEMINI_2_0_FLASH: true
-```
+> This page only documents the Server options. [See this page to get started](https://github.com/aklinker1/vitepress-knowledge).
 
 ## Environment Variables
+
+The server is configured via environment variables.
 
 | Name                 | Example                                      | Description                                                                                                                   |
 | -------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -35,3 +24,12 @@ services:
 | `ASSISTANT_ICON_URL` | `/logo.svg`                                  | Optional: Path or full URL to icon to use for the assistant's avatar in the chat. If missing, will default to `/favicon.ico`. |
 | `WELCOME_MESSAGE`    | `<p>Hi!</p><p>I'm an AI assistant...`        | Optional: HTML template for customizing the initial message shown before a user sends their first message.                    |
 | `SYSTEM_PROMPT`      | `You are an expert developer trained on ...` | Optional: Customize the system prompt                                                                                         |
+
+> [!WARNING]
+> Note that right now, the chat window is hardcoded to use Gemini 2.0 Flash. The other services and models cannot be used yet.
+
+## Hosting
+
+To host the backend, you can use docker like the [Setup guide does](https://github.com/aklinker1/vitepress-knowledge#setup), or clone down the repo and run the `server/src/main.ts` file yourself.
+
+The `server/Dockerfile` contains the minimal set of build instructions to run the backend.
