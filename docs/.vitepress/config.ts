@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import knowledge from "../../src/index";
+import knowledge from "vitepress-knowledge";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,7 +11,21 @@ export default defineConfig({
       "/api/": "api-reference",
     },
   }),
+  head: [
+    [
+      "script",
+      {
+        src: "https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js",
+      },
+    ],
+    ["script", { defer: "true", async: "true", src: "http://localhost:5174" }],
+  ],
   themeConfig: {
+    logo: {
+      src: "https://wxt.dev/logo.svg",
+      alt: "Logo",
+    },
+
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },

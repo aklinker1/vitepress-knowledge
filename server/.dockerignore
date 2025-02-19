@@ -1,0 +1,6 @@
+.env
+.env.*
+node_modules
+tsconfig.json
+**/__tests__/**
+**.test.ts
