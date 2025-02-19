@@ -9,7 +9,6 @@ import {
   SERVICE_AUTH,
   SERVICE_AUTH_NAME_COLUMN_WIDTH,
   SERVICE_AUTH_ENV_COLUMN_WIDTH,
-  type AiModelEnum as AiModelEnumType,
 } from "./constants";
 import pc from "picocolors";
 import { consola } from "consola";
@@ -54,7 +53,7 @@ const js = Bun.file("public/index.js")
       .replaceAll("{{ ASSISTANT_ICON_URL }}", env.ASSISTANT_ICON_URL)
       .replaceAll("{{ DOMAIN }}", env.DOMAIN),
   );
-const systemMessageFile = Bun.file("public/system-message.txt");
+const privacyPolicy = Bun.file("public/privacy-policy.md").text();
 
 let app = new Elysia()
   .use(
@@ -93,6 +92,18 @@ let app = new Elysia()
       },
     },
   )
+  .get("/privacy-policy", async () => await privacyPolicy, {
+    detail: {
+      description: [
+        "The server hosts a copy of \`vitepress-knowledge\`'s privacy policy at this endpoint.",
+      ].join("\n"),
+    },
+    response: {
+      200: t.String({
+        description: "The privacy policy as a markdown document",
+      }),
+    },
+  })
   .get(
     "/api/models",
     ({ query }) => {
