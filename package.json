@@ -1,61 +1,28 @@
 {
-  "name": "vitepress-knowledge",
-  "description": "VitePress plugin for generating AI knowledge files for LLMs",
-  "version": "0.3.0",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aklinker1/vitepress-knowledge.git"
-  },
-  "keywords": [
-    "vitepress",
-    "vitepress-plugin",
-    "ai",
-    "gpt",
-    "llm",
-    "openai",
-    "chat"
-  ],
-  "author": {
-    "name": "Aaron Klinker",
-    "email": "aaronklinker1+github@gmail.com"
-  },
   "packageManager": "bun@1.1.43",
   "type": "module",
-  "module": "dist/index.js",
-  "types": "src/index.ts",
-  "exports": {
-    "types": "./src/index.ts",
-    "default": "./dist/index.js"
-  },
-  "files": [
-    "src",
-    "dist"
+  "workspaces": [
+    "plugin",
+    "server"
   ],
   "scripts": {
-    "check": "bun run build && check",
-    "build": "bun build src/index.ts --outfile=dist/index.js --target node --packages=external",
-    "prepublishOnly": "bun run build",
-    "docs:dev": "vitepress dev docs",
+    "dev": "run-p dev:*",
+    "dev:docs": "vitepress dev docs",
+    "dev:server": "bun run --cwd server --watch src/main.ts",
+    "check": "bun run --cwd plugin build && bun tsc -b && bun --cwd plugin check --binDir ../node_modules/.bin && bun --cwd server check --binDir ../node_modules/.bin",
+    "docs:dev": "",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "linkedom": "^0.18.6",
-    "node-html-markdown": "^1.3.0",
-    "picocolors": "^1.1.1",
-    "yaml": "^2.7.0"
+    "vitepress-knowledge": "workspace:*"
   },
   "devDependencies": {
     "@aklinker1/check": "^1.4.5",
     "@types/bun": "latest",
+    "npm-run-all": "^4.1.5",
     "oxlint": "^0.15.5",
     "prettier": "^3.4.2",
-    "publint": "^0.3.1",
-    "typescript": "^5.0.0",
-    "vitepress": "^1.5.0"
-  },
-  "peerDependencies": {
-    "vitepress": "^1.0.0"
+    "typescript": "^5.0.0"
   }
 }
