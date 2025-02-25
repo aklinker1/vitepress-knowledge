@@ -25,6 +25,29 @@ styles.innerHTML = `
   opacity: 50%;
 }
 
+.share-btn {
+  color: var(--vp-button-brand-text);
+}
+
+.share-btn:hover {
+  color: var(--vp-button-brand-hover-bg);
+}
+
+.share-btn i {
+  display: block;
+}
+
+.share-btn--copied i {
+  display: none;
+}
+  
+.share-btn--copied:after {
+  content: 'copied';
+  color: var(--vp-badge-tip-text);
+  font-size: 14px;
+  margin-left: 0.5rem;
+}
+
 .ask-ai-btn {
   position: fixed;
   right: 2rem;
@@ -259,6 +282,11 @@ const getMdToHtml = () => {
   return _mdToHtml;
 };
 
+const shareButtonSvg = () => {
+  const element = document.createElement("i");
+  element.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.53.5 1.22.81 1.95.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.3 6.81 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.81 0 1.5-.3 2.04-.81l7.12 4.17c-.05.21-.08.43-.08.64 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"/></svg>`;
+  return element;
+};
 const lightingSvg = () => {
   const element = document.createElement("i");
   element.style.display = "block";
@@ -292,7 +320,7 @@ const askAiButton = () => {
   button.append(lightingSvg(), text);
 
   button.onclick = () => {
-    document.body.append(chatWindow());
+    document.body.append(chatWindow().overlay);
     document.body.style.overflow = "hidden";
   };
 
@@ -328,11 +356,26 @@ function chatWindow() {
   const closeIcon = xMarkSvg();
   closeButton.append(closeIcon);
   closeButton.onclick = () => closeChatWindow();
-  titleDiv.append(titleIcon, titleSpan, closeButton);
+  const shareButton = document.createElement("button");
+  shareButton.classList.add("share-btn");
+  shareButton.onclick = () => {
+    navigator.clipboard.writeText(getShareURL()).catch(err => {
+      console.error('Failed to copy: ', err);
+    }).finally(() => {
+      shareButton.classList.add('share-btn--copied');
+      setTimeout(() => {
+        shareButton.classList.remove('share-btn--copied');
+      }, 1000);
+    });
+  };
+  shareButton.append(shareButtonSvg());
+
+  titleDiv.append(titleIcon, titleSpan, shareButton, closeButton);
+
 
   let messages = [];
-  const sendMessage = async () => {
-    const content = textarea.value.trim();
+  const sendMessage = async (text) => {
+    const content = text.trim();
     if (!content) return;
 
     textarea.value = "";
@@ -410,6 +453,12 @@ function chatWindow() {
     }
   };
 
+  const getShareURL = () => {
+    const url = new URL(location);
+    url.searchParams.set("q", JSON.stringify(messages));
+    return url.toString();
+  }
+
   const inputDiv = document.createElement("div");
   inputDiv.classList.add("chat-window-input-section");
 
@@ -418,14 +467,14 @@ function chatWindow() {
   textarea.onkeydown = (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
       event.preventDefault();
-      sendMessage();
+      sendMessage(textarea.value);
     }
   };
   const sendButton = document.createElement("button");
   sendButton.classList.add("chat-btn");
   sendButton.append(paperAirplaneSvg());
   sendButton.onclick = () => {
-    sendMessage();
+    sendMessage(textarea.value);
   };
   inputDiv.append(textarea, sendButton);
 
@@ -433,7 +482,26 @@ function chatWindow() {
   overlay.append(chatWindow);
   setTimeout(() => textarea.focus());
 
-  return overlay;
+  return {overlay, renderMessages, messages};
 }
 
 document.body.append(askAiButton());
+
+
+(() => {
+  try {
+    const initialQuestion = new URLSearchParams(window.location.search).get('q');
+    if (!initialQuestion) return;
+
+    const intialMessages = JSON.parse(initialQuestion);
+    if (!intialMessages.length) return;
+    
+    const {overlay, renderMessages, messages} = chatWindow();
+    document.body.append(overlay);
+    document.body.style.overflow = "hidden";
+
+    intialMessages.forEach((message) => messages.push(message));
+    renderMessages();
+    
+  } catch (error) {}
+})()
