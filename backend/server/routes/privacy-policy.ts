@@ -1,5 +1,4 @@
 import { Elysia, t } from "elysia";
-// @ts-expect-error: Untyped *.md module
 import privacyPolicy from "../ assets/privacy-policy.md" with { type: "text" };
 
 const description = `
