@@ -1,5 +1,5 @@
 import { Elysia, t } from "elysia";
-import privacyPolicy from "../ assets/privacy-policy.md" with { type: "text" };
+import privacyPolicy from "../assets/privacy-policy.md" with { type: "text" };
 
 const description = `
 The server hosts a copy of \`vitepress-knowledge\`'s privacy policy at this endpoint.
