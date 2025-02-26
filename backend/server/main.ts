@@ -16,6 +16,7 @@ import {
   SERVICE_AUTH_NAME_COLUMN_WIDTH,
 } from "./utils/constants";
 import * as env from "./utils/env";
+import { indexRoute } from "./routes";
 
 consola.info("Starting server...");
 
@@ -23,6 +24,7 @@ const app = new Elysia()
   .use(requestLogger)
   .use(swaggerRoute)
   .use(applyCors)
+  .use(indexRoute)
   .use(askAiRoute)
   .use(privacyPolicyRoute)
   .use(apiRoute)
