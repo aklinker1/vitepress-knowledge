@@ -40,7 +40,7 @@ styles.innerHTML = `
 .share-btn--copied i {
   display: none;
 }
-  
+
 .share-btn--copied:after {
   content: 'copied';
   color: var(--vp-badge-tip-text);
@@ -504,14 +504,14 @@ document.body.append(askAiButton());
     );
     if (!initialQuestion) return;
 
-    const intialMessages = JSON.parse(initialQuestion);
-    if (!intialMessages.length) return;
+    const initialMessages = JSON.parse(initialQuestion);
+    if (!initialMessages.length) return;
 
     const { overlay, renderMessages, messages } = chatWindow();
     document.body.append(overlay);
     document.body.style.overflow = "hidden";
 
-    intialMessages.forEach((message) => messages.push(message));
+    initialMessages.forEach((message) => messages.push(message));
     renderMessages();
-  } catch (error) {}
+  } catch {}
 })();

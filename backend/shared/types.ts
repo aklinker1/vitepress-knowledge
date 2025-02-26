@@ -1,11 +1,5 @@
 import { t } from "elysia";
-import {
-  AVAILABLE_AI_MODELS,
-  type AiModelEnum as AvailableAiModelEnum,
-} from "./constants";
-
-export const ref = (value: { $id?: string }) =>
-  t.Ref(`#/components/schemas/${value.$id ?? "<missing-id>"}`);
+import { AVAILABLE_AI_MODELS } from "../server/utils/constants";
 
 export const AiModel = t.Object(
   {
@@ -33,6 +27,7 @@ export type AiModel = typeof AiModel.static;
 export const AiModelEnum = t.String({
   examples: [AVAILABLE_AI_MODELS[0].enum],
 });
+export type AiModelEnum = typeof AiModelEnum.static;
 
 export const ChatMessage = t.Object(
   {
@@ -48,3 +43,9 @@ export const ChatMessage = t.Object(
   },
 );
 export type ChatMessage = typeof ChatMessage.static;
+
+export const PostChatRequestBody = t.Object({
+  model: AiModelEnum,
+  messages: t.Array(ChatMessage),
+});
+export type PostChatRequestBody = typeof PostChatRequestBody.static;
