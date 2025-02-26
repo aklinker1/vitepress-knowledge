@@ -40,7 +40,14 @@ export default function knowledge<ThemeConfig>(
             },
           ],
           // Loads the JS that adds the "Ask AI" button and chat window to website
-          ["script", { defer: "true", async: "true", src: options.serverUrl }],
+          [
+            "script",
+            {
+              defer: "true",
+              async: "true",
+              src: `${options.serverUrl}/ask-ai.js`,
+            },
+          ],
         ]
       : [],
 
