@@ -386,6 +386,7 @@ function chatWindow() {
     const newMessage = { role: "user", content };
     messages.push(newMessage);
     renderMessages();
+    updateQueryParam();
 
     try {
       const res = await fetch("{{ SERVER_URL }}/api/chat", {
@@ -416,6 +417,7 @@ function chatWindow() {
       });
     } finally {
       renderMessages();
+      updateQueryParam();
       inputDiv.removeAttribute("disabled");
       textarea.removeAttribute("disabled");
       sendButton.removeAttribute("disabled");
@@ -459,6 +461,12 @@ function chatWindow() {
     return url.toString();
   }
 
+  const updateQueryParam = () => {
+    const url = new URL(location);
+    url.searchParams.set("q", JSON.stringify(messages));
+    history.pushState({}, "", url);
+  }
+
   const inputDiv = document.createElement("div");
   inputDiv.classList.add("chat-window-input-section");
 
@@ -486,7 +494,6 @@ function chatWindow() {
 }
 
 document.body.append(askAiButton());
-
 
 (() => {
   try {
