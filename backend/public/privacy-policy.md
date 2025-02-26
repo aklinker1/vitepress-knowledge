@@ -9,12 +9,16 @@ Welcome to VitePress Knowledge ("we," "our," or "us"). This Privacy Policy expla
 ## 2. Information We Collect
 
 ### 2.1 Information You Provide
+
 We collect the following information when you use our service:
+
 - Chat prompts and messages you submit to the AI chat interface
 - Any additional information you voluntarily provide through your interactions with our service
 
 ### 2.2 Automatically Collected Information
+
 We automatically collect certain information when you visit or use our service:
+
 - IP addresses
 - Technical information about how you interact with our chat interface
 
@@ -23,6 +27,7 @@ Note: All requests are processed anonymously, and we do not maintain user accoun
 ## 3. How We Use Your Information
 
 We use the collected information for the following purposes:
+
 - To provide and maintain our AI chat service
 - To process and respond to your queries using our AI models
 - To improve our service and user experience
@@ -33,6 +38,7 @@ We use the collected information for the following purposes:
 ## 4. Third-Party Services
 
 We use the following third-party AI services to process your queries:
+
 - Anthropic's Claude AI models
 - Google's Gemini AI models
 
@@ -45,6 +51,7 @@ Our service is open-source and self-hosted. We implement appropriate technical a
 ## 6. Your Rights
 
 Due to the anonymous nature of our service, we cannot identify specific users or their data. Therefore:
+
 - We cannot fulfill individual data access requests
 - We cannot selectively delete individual user data
 - We cannot link multiple requests to a single user
@@ -54,6 +61,7 @@ We maintain this approach to maximize user privacy and minimize data collection.
 ## 7. Legal Basis for Processing
 
 We process your personal information based on:
+
 - Your consent
 - Our legitimate interests in operating and improving our service
 - Compliance with legal obligations

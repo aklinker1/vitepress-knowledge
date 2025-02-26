@@ -359,19 +359,21 @@ function chatWindow() {
   const shareButton = document.createElement("button");
   shareButton.classList.add("share-btn");
   shareButton.onclick = () => {
-    navigator.clipboard.writeText(getShareURL()).catch(err => {
-      console.error('Failed to copy: ', err);
-    }).finally(() => {
-      shareButton.classList.add('share-btn--copied');
-      setTimeout(() => {
-        shareButton.classList.remove('share-btn--copied');
-      }, 1000);
-    });
+    navigator.clipboard
+      .writeText(getShareURL())
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      })
+      .finally(() => {
+        shareButton.classList.add("share-btn--copied");
+        setTimeout(() => {
+          shareButton.classList.remove("share-btn--copied");
+        }, 1000);
+      });
   };
   shareButton.append(shareButtonSvg());
 
   titleDiv.append(titleIcon, titleSpan, shareButton, closeButton);
-
 
   let messages = [];
   const sendMessage = async (text) => {
@@ -459,13 +461,13 @@ function chatWindow() {
     const url = new URL(location);
     url.searchParams.set("q", JSON.stringify(messages));
     return url.toString();
-  }
+  };
 
   const updateQueryParam = () => {
     const url = new URL(location);
     url.searchParams.set("q", JSON.stringify(messages));
     history.pushState({}, "", url);
-  }
+  };
 
   const inputDiv = document.createElement("div");
   inputDiv.classList.add("chat-window-input-section");
@@ -490,25 +492,26 @@ function chatWindow() {
   overlay.append(chatWindow);
   setTimeout(() => textarea.focus());
 
-  return {overlay, renderMessages, messages};
+  return { overlay, renderMessages, messages };
 }
 
 document.body.append(askAiButton());
 
 (() => {
   try {
-    const initialQuestion = new URLSearchParams(window.location.search).get('q');
+    const initialQuestion = new URLSearchParams(window.location.search).get(
+      "q",
+    );
     if (!initialQuestion) return;
 
     const intialMessages = JSON.parse(initialQuestion);
     if (!intialMessages.length) return;
-    
-    const {overlay, renderMessages, messages} = chatWindow();
+
+    const { overlay, renderMessages, messages } = chatWindow();
     document.body.append(overlay);
     document.body.style.overflow = "hidden";
 
     intialMessages.forEach((message) => messages.push(message));
     renderMessages();
-    
   } catch (error) {}
-})()
+})();

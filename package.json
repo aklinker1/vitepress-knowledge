@@ -1,15 +1,15 @@
 {
-  "packageManager": "bun@1.2.2",
+  "packageManager": "bun@1.2.3",
   "type": "module",
   "workspaces": [
     "plugin",
-    "server"
+    "backend"
   ],
   "scripts": {
     "dev": "run-p dev:*",
     "dev:docs": "vitepress dev docs",
-    "dev:server": "bun run --cwd server --watch src/main.ts",
-    "check": "bun run --cwd plugin build && bun tsc -b && bun --cwd plugin check --binDir ../node_modules/.bin && bun --cwd server check --binDir ../node_modules/.bin",
+    "dev:backend": "bun --cwd backend dev",
+    "check": "bun run --cwd plugin build && bun tsc -b && bun --cwd plugin check --binDir ../node_modules/.bin && bun --cwd backend check --binDir ../node_modules/.bin",
     "docs:dev": "",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
