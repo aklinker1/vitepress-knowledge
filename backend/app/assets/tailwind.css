@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@plugin '@egoist/tailwindcss-icons' {
+  scale: 1.5;
+}
+
+@plugin "@tailwindcss/typography";
+
+@layer base {
+  :root {
+    --c-brand: var(--c-brand-override, #5373e7);
+    --c-brand-soft: color-mix(in srgb, var(--c-brand) 10%, transparent);
+    --c-brand-content: var(--c-brand-content-override, white);
+
+    --c-base-content: white;
+
+    --c-bg: #1b1b1f;
+    --c-bg-alt: #161618;
+    --c-bg-elv: #202127;
+    --c-bg-soft: #202127;
+
+    --c-default: #515c67;
+    --c-default-soft: rgba(101, 117, 133, 0.16);
+
+    --c-warning: oklch(0.795 0.184 86.047);
+    --c-warning-soft: color-mix(in srgb, var(--c-warning) 10%, transparent);
+    --c-warning-content: black;
+  }
+
+  body {
+    background-color: var(--c-bg);
+  }
+}
+
+@layer components {
+  .btn {
+    display: flex;
+    padding: calc(2 * var(--spacing));
+    align-items: center;
+    gap: calc(2 * var(--spacing));
+    background-color: var(--c-brand);
+    border-radius: 9999px;
+    transition: 200ms ease;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--c-brand-content);
+    cursor: pointer;
+  }
+  .btn:hover {
+    background-color: color-mix(in srgb, var(--c-brand) 85%, black);
+    transform: scale(105%);
+  }
+  .btn:active {
+    background-color: color-mix(in srgb, var(--c-brand) 70%, black);
+    transform: scale(98%);
+  }
+  .btn:disabled {
+    opacity: 50%;
+  }
+  .btn.btn-ghost {
+    background-color: rgba(255, 255, 255, 0);
+    color: var(--c-base-content);
+  }
+  .btn.btn-ghost:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .btn.btn-ghost:active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  .btn.btn-circle {
+    border-radius: 9999px;
+    aspect-ratio: 1;
+  }
+
+  .badge {
+    --badge-bg-color: var(--c-brand-soft);
+    --badge-text-color: var(--c-brand);
+    border-radius: calc(1 * var(--spacing));
+    background-color: var(--badge-bg-color);
+    color: var(--badge-text-color);
+    font-size: 0.875rem;
+    padding: calc(1 * var(--spacing)) calc(2 * var(--spacing));
+  }
+  .badge-sm {
+    font-size: 0.625rem;
+    font-weight: 600;
+    padding: 0.2rem 0.4rem;
+  }
+  .badge-warning {
+    --badge-bg-color: var(--c-warning-soft);
+    --badge-text-color: var(--c-warning);
+  }
+
+  .link {
+    text-decoration: underline;
+    color: var(--c-brand);
+    display: flex;
+    align-items: center;
+    gap: calc(0.5 * var(--spacing));
+  }
+  .link > i {
+    margin: calc(-2 * var(--spacing)) 0;
+  }
+  .link:hover {
+    color: color-mix(in srgb, var(--c-brand) 85%, white);
+  }
+  .link:active {
+    color: color-mix(in srgb, var(--c-brand) 70%, white);
+  }
+}

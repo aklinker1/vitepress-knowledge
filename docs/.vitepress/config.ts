@@ -6,7 +6,7 @@ export default defineConfig({
   title: "VitePress Knowledge",
   description: "Generate knowledge files for LLMs",
   extends: knowledge({
-    serverUrl: "http://localhost:3001",
+    serverUrl: "http://localhost:3000",
     paths: {
       "/": "docs",
       "/api/": "api-reference",
