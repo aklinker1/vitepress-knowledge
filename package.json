@@ -26,8 +26,6 @@
   },
   "dependencies": {
     "@elysiajs/eden": "^1.2.0",
-    "@vueuse/core": "^12.7.0",
-    "add": "^2.0.6",
-    "bun": "^1.2.4"
+    "@vueuse/core": "^12.7.0"
   }
 }
