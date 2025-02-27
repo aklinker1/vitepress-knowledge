@@ -5,9 +5,9 @@ import { useClipboard } from "@vueuse/core";
 import { computed, ref, shallowRef, toRaw } from "vue";
 import { apiClient } from "./utils/api-client";
 import type { ChatMessage } from "../shared/types";
+import { isIframe } from "./utils/is-iframe";
 
 const url = new URL(location.href);
-const showClose = url.searchParams.get("mode") === "modal";
 const close = () => {
   window.postMessage("vitepress-knowledge:close-modal", "*");
   window.parent.postMessage("vitepress-knowledge:close-modal", "*");
@@ -75,7 +75,7 @@ const messages = computed(() => {
         <span v-else>Share</span>
       </button>
       <button
-        v-if="showClose"
+        v-if="isIframe"
         class="btn btn-ghost btn-circle"
         title="close"
         @click="close"
