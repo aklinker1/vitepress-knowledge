@@ -138,7 +138,6 @@ function chatWindow(initialMessages) {
   const chatWindow = document.createElement("iframe");
   chatWindow.classList.add("chat-window");
   const url = new URL("{{ SERVER_URL }}");
-  url.searchParams.set("mode", "modal");
   if (initialMessages)
     url.searchParams.set("q", JSON.stringify(initialMessages));
   chatWindow.src = url.href;
