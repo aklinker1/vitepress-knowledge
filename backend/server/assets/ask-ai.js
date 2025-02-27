@@ -135,10 +135,6 @@ function chatWindow(initialMessages) {
     closeChatWindow();
   };
 
-  // chatWindow.onclick = (event) => {
-  //   event.stopPropagation();
-  // };
-
   const chatWindow = document.createElement("iframe");
   chatWindow.classList.add("chat-window");
   const url = new URL("{{ SERVER_URL }}");
