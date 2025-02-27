@@ -14,6 +14,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
+  "dependencies": {},
   "devDependencies": {
     "@aklinker1/check": "^1.4.5",
     "@types/bun": "latest",
@@ -21,9 +22,5 @@
     "oxlint": "^0.15.5",
     "prettier": "^3.4.2",
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@elysiajs/eden": "^1.2.0",
-    "@vueuse/core": "^12.7.0"
   }
 }
