@@ -41,8 +41,4 @@ const html = computed(() => mdToHtml(props.markdown));
 .prose code {
   font-size: calc(0.875 * var(--spacing));
 }
-.prose code::before,
-.prose code::after {
-  display: none;
-}
 </style>
