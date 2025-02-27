@@ -10,7 +10,6 @@ const props = defineProps<{
 
 <template>
   <ul class="flex flex-col gap-4">
-    <!-- Messages -->
     <MessageListItem v-for="message of messages" :message />
 
     <li v-if="loading">
