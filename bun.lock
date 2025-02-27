@@ -3,10 +3,6 @@
   "workspaces": {
     "": {
       "name": "vitepress-knowledge",
-      "dependencies": {
-        "@elysiajs/eden": "^1.2.0",
-        "@vueuse/core": "^12.7.0",
-      },
       "devDependencies": {
         "@aklinker1/check": "^1.4.5",
         "@types/bun": "latest",
@@ -23,9 +19,11 @@
         "@aklinker1/aframe": "^0.2.5",
         "@egoist/tailwindcss-icons": "^1.9.0",
         "@elysiajs/cors": "^1.2.0",
+        "@elysiajs/eden": "^1.2.0",
         "@elysiajs/swagger": "^1.2.0",
         "@iconify-json/heroicons": "^1.2.2",
         "@iconify-json/svg-spinners": "^1.2.2",
+        "@vueuse/core": "^12.7.0",
         "async-mutex": "^0.5.0",
         "consola": "^3.4.0",
         "elysia": "^1.2.13",
