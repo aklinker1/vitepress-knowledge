@@ -6,6 +6,7 @@ import { computed, ref, shallowRef, toRaw } from "vue";
 import { apiClient } from "./utils/api-client";
 import type { ChatMessage } from "../shared/types";
 import { isIframe } from "./utils/is-iframe";
+import { useRouter, useRoute } from "vue-router";
 
 const url = new URL(location.href);
 const close = () => {
@@ -17,11 +18,15 @@ const { copy: copyUrl, copied: isUrlCopied } = useClipboard({
   source: () => location.href,
 });
 
-const threadMessages = shallowRef<ChatMessage[]>([]);
+const route = useRoute();
+const threadMessages = shallowRef<ChatMessage[]>(
+  route.query.q ? JSON.parse(route.query.q as string) : [],
+);
 
 const newMessage = ref("");
 const loading = ref(false);
 
+const router = useRouter();
 const sendMessage = async () => {
   const content = newMessage.value.trim();
   if (!content || loading.value) return;
@@ -41,6 +46,7 @@ const sendMessage = async () => {
     if (res.error) throw res.error;
 
     threadMessages.value = res.data;
+    router.replace({ query: { q: JSON.stringify(res.data) } });
     newMessage.value = "";
   } catch (err) {
     console.error(err);
@@ -65,7 +71,7 @@ const messages = computed(() => {
       <div class="flex gap-1 items-center">
         <h1 class="shrink-0 font-bold text-lg">Ask AI</h1>
         <p class="shrink-0 ml-1 badge badge-sm badge-warning uppercase">
-          Early Alpha
+          Alpha
         </p>
       </div>
       <div class="flex-1" />

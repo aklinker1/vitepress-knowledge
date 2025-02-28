@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import { createRouter, createWebHistory, RouterView } from "vue-router";
 
 const url = new URL(location.href);
 
@@ -8,4 +9,9 @@ if (theme === "dark") {
   document.documentElement.classList.add("dark");
 }
 
-createApp(App).mount("#app");
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{ path: "/:pathMatch(.*)*", component: App }],
+});
+
+createApp(RouterView).use(router).mount("#app");
