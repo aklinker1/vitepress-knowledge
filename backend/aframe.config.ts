@@ -17,7 +17,6 @@ function applyTemplateVars(): Plugin {
       const { applyAppTemplateVars } = await import(
         "./server/utils/template-vars"
       );
-      console.log(applyAppTemplateVars(html));
       return applyAppTemplateVars(html);
     },
   };
