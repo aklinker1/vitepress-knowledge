@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import { AVAILABLE_AI_MODELS, SERVICE_AUTH } from "../utils/constants";
-import * as env from "../utils/env";
+import env from "../utils/env";
 
 export const decorateContext = new Elysia({ name: "decorate-context" })
   .decorate({

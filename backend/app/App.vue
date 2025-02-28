@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { WELCOME_MESSAGE } from "./utils/constants";
+import { WELCOME_CHAT_MESSAGE } from "./utils/constants";
 import MessageList from "./components/MessageList.vue";
 import { useClipboard } from "@vueuse/core";
 import { computed, ref, shallowRef, toRaw } from "vue";
@@ -8,7 +8,6 @@ import type { ChatMessage } from "../shared/types";
 import { isIframe } from "./utils/is-iframe";
 import { useRouter, useRoute } from "vue-router";
 
-const url = new URL(location.href);
 const close = () => {
   window.postMessage("vitepress-knowledge:close-modal", "*");
   window.parent.postMessage("vitepress-knowledge:close-modal", "*");
@@ -57,9 +56,13 @@ const sendMessage = async () => {
 };
 
 const messages = computed(() => {
-  if (threadMessages.value.length === 0) return [WELCOME_MESSAGE];
+  if (threadMessages.value.length === 0) return [WELCOME_CHAT_MESSAGE];
   return threadMessages.value;
 });
+
+const docsUrl = DOCS_URL;
+const docsDomain = new URL(DOCS_URL).host;
+const appName = APP_NAME;
 </script>
 
 <template>
@@ -69,12 +72,23 @@ const messages = computed(() => {
     >
       <i class="i-heroicons-bolt-solid size-6" />
       <div class="flex gap-1 items-center">
-        <h1 class="shrink-0 font-bold text-lg">Ask AI</h1>
+        <h1 class="shrink-0 font-bold text-lg">Ask {{ appName }} AI</h1>
         <p class="shrink-0 ml-1 badge badge-sm badge-warning uppercase">
           Alpha
         </p>
       </div>
       <div class="flex-1" />
+      <a
+        v-if="!isIframe"
+        class="ml-4 link font-bold text-lg"
+        :href="docsUrl"
+        target="_blank"
+      >
+        <span>{{ docsDomain }}</span>
+        <i
+          class="i-heroicons-arrow-top-right-on-square-16-solid size-4 -my-2"
+        />
+      </a>
       <button class="btn btn-ghost" @click="() => copyUrl()">
         <i class="i-heroicons-share-solid size-5" />
         <span v-if="isUrlCopied">Copied!</span>

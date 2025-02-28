@@ -15,7 +15,7 @@ import {
   SERVICE_AUTH_ENV_COLUMN_WIDTH,
   SERVICE_AUTH_NAME_COLUMN_WIDTH,
 } from "./utils/constants";
-import * as env from "./utils/env";
+import env from "./utils/env";
 
 consola.info("Starting server...");
 

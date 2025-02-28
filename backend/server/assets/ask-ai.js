@@ -46,6 +46,8 @@ styles.innerHTML = `
   z-index: 1000;
   position: fixed;
   inset: 0;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 .chat-window {
   margin: auto;
@@ -69,8 +71,6 @@ styles.innerHTML = `
     display: flex;
     cursor: pointer;
     padding: 2rem;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
   }
   .chat-window {
     width: 900px;

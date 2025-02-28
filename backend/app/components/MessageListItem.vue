@@ -7,6 +7,8 @@ import MarkdownRenderer from "./MarkdownRenderer.vue";
 const props = defineProps<{
   message: ChatMessage;
 }>();
+
+const assistantIconUrl = `url(${ASSISTANT_ICON_URL})`;
 </script>
 
 <template>
@@ -31,7 +33,7 @@ const props = defineProps<{
   height: 24px;
   left: -40px;
   bottom: 0;
-  background-image: url("{{ ASSISTANT_ICON_URL }}");
+  background-image: v-bind(assistantIconUrl);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

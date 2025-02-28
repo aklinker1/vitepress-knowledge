@@ -1,8 +1,9 @@
 import { Elysia, t } from "elysia";
 import { getKnowledgeFiles } from "../../utils/knowledge-files";
-import * as env from "../../utils/env";
+import env from "../../utils/env";
 import { models } from "../../plugins/models";
 import { decorateContext } from "../../plugins/decorate-context";
+import { applySystemPromptTemplateVars } from "../../utils/template-vars";
 
 export const postChatRoute = new Elysia()
   .use(models)
@@ -27,12 +28,10 @@ export const postChatRoute = new Elysia()
 
       const knowledge = await getKnowledgeFiles(env.DOCS_URL);
 
-      const systemPrompt = env.SYSTEM_PROMPT
-        // Prompt vars:
-        .replaceAll("{{ APP_NAME }}", env.APP_NAME)
-        .replaceAll("{{ SERVER_URL }}", env.SERVER_URL)
-        .replaceAll("{{ DOMAIN }}", new URL(env.SERVER_URL).host)
-        .replaceAll("{{ KNOWLEDGE }}", knowledge.files.join("\n\n"));
+      const systemPrompt = applySystemPromptTemplateVars(
+        env.SYSTEM_PROMPT,
+        knowledge.files.join("\n\n"),
+      );
 
       switch (auth.enum) {
         case "anthropic": {
