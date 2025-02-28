@@ -8,7 +8,7 @@ function applyTemplateVars(): Plugin {
   let mode = "development";
   return {
     apply: "serve",
-    name: "dev-env",
+    name: "backend:apply-template-vars",
     configResolved(config) {
       mode = config.mode;
     },
