@@ -16,6 +16,7 @@ import {
   SERVICE_AUTH_NAME_COLUMN_WIDTH,
 } from "./utils/constants";
 import env from "./utils/env";
+import { applyAppTemplateVars } from "./utils/template-vars";
 
 consola.info("Starting server...");
 
@@ -26,7 +27,21 @@ const app = new Elysia()
   .use(askAiRoute)
   .use(privacyPolicyRoute)
   .use(apiRoute)
-  .mount(fetchStatic);
+  .mount(
+    fetchStatic({
+      // Apply template vars to HTML files
+      onFetch: async (path, file) => {
+        if (path.includes(".html")) {
+          const html = applyAppTemplateVars(await file.text());
+          return new Response(html, {
+            headers: {
+              "content-type": file.type,
+            },
+          });
+        }
+      },
+    }),
+  );
 
 consola.info("Resolved Environment Variables");
 consola.info(`  ${pc.dim("PORT=")}${pc.cyan(env.PORT)}`);

@@ -16,7 +16,7 @@
       "name": "vitepress-knowledge-server",
       "version": "0.2.0-alpha1",
       "dependencies": {
-        "@aklinker1/aframe": "^0.2.5",
+        "@aklinker1/aframe": "^0.3.0",
         "@egoist/tailwindcss-icons": "^1.9.0",
         "@elysiajs/cors": "^1.2.0",
         "@elysiajs/eden": "^1.2.0",
@@ -67,7 +67,7 @@
     },
   },
   "packages": {
-    "@aklinker1/aframe": ["@aklinker1/aframe@0.2.5", "", { "peerDependencies": { "@prerenderer/prerenderer": "*", "@prerenderer/renderer-jsdom": "*", "@prerenderer/renderer-puppeteer": "*", "vite": "*" }, "optionalPeers": ["@prerenderer/renderer-puppeteer"], "bin": { "aframe": "bin/aframe.ts" } }, "sha512-s3iFf0CzHxb7lD96RiB+PLeDrsnlh5S9BBpxxIjoRKslY54xr8X4F32R2rOrqJ4sPWCn2v8o9FUCLhC2KwM/zA=="],
+    "@aklinker1/aframe": ["@aklinker1/aframe@0.3.0", "", { "peerDependencies": { "@prerenderer/prerenderer": "*", "@prerenderer/renderer-jsdom": "*", "@prerenderer/renderer-puppeteer": "*", "vite": "*" }, "optionalPeers": ["@prerenderer/renderer-puppeteer"], "bin": { "aframe": "bin/aframe.ts" } }, "sha512-AE1VA4igvK/Cg43IMDnXKpF0CeWJ7tskQgxHmNhN/aNK/XZzAzcnwdVq30/S13Jst1xhqsrgPbt0gdyABnmf9g=="],
 
     "@aklinker1/check": ["@aklinker1/check@1.4.5", "", { "dependencies": { "@antfu/utils": "^0.7.7", "ci-info": "^4.0.0", "citty": "^0.1.6" }, "peerDependencies": { "typescript": "^5.0.0" }, "bin": { "check": "bin/check.mjs" } }, "sha512-whVpnpSK4qa4/83q22JAmxwRAEj35qYs8eIH/tX1C6rKbiwx7EL6kQVmSAhCe1NYqzoIWyOgsISdDPyHjC+h2A=="],
 
