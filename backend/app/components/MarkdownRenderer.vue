@@ -23,7 +23,7 @@ const html = computed(() => mdToHtml(props.markdown));
 .prose > ul {
   display: flex;
   flex-direction: column;
-  gap: calc(4 * var(--spacing));
+  gap: calc(2 * var(--spacing));
 }
 .prose > *,
 .prose > ol,

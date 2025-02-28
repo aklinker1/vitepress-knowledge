@@ -46,6 +46,10 @@ const app = new Elysia()
 consola.info("Resolved Environment Variables");
 consola.info(`  ${pc.dim("PORT=")}${pc.cyan(env.PORT)}`);
 consola.info(`  ${pc.dim("APP_NAME=")}${pc.cyan(env.APP_NAME)}`);
+consola.info(`  ${pc.dim("BRAND_COLOR=")}${pc.cyan(env.BRAND_COLOR)}`);
+consola.info(
+  `  ${pc.dim("BRAND_CONTENT_COLOR=")}${pc.cyan(env.BRAND_CONTENT_COLOR)}`,
+);
 consola.info(`  ${pc.dim("SERVER_URL=")}${pc.cyan(env.SERVER_URL)}`);
 consola.info(`  ${pc.dim("DOCS_URL=")}${pc.cyan(env.DOCS_URL)}`);
 consola.info(

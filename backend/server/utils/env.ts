@@ -13,6 +13,9 @@ const CLAUDE_3_5_HAIKU = process.env.CLAUDE_3_5_HAIKU === "true";
 
 const PORT = Number(process.env.PORT) || 5174;
 const APP_NAME = process.env.APP_NAME?.trim() || "<APP_NAME>";
+const BRAND_COLOR = process.env.BRAND_COLOR?.trim() || "<BRAND_COLOR>";
+const BRAND_CONTENT_COLOR =
+  process.env.BRAND_CONTENT_COLOR?.trim() || "<BRAND_CONTENT_COLOR>";
 const SERVER_URL = process.env.SERVER_URL?.trim() || "<SERVER_URL>";
 const DOCS_URL = (process.env.DOCS_URL || "http://localhost:5173")
   // Remove trailing /
@@ -44,6 +47,8 @@ export default {
   CLAUDE_3_5_HAIKU,
   PORT,
   APP_NAME,
+  BRAND_COLOR,
+  BRAND_CONTENT_COLOR,
   SERVER_URL,
   DOCS_URL,
   CORS_ORIGIN,
