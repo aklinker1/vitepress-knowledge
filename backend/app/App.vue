@@ -22,6 +22,7 @@ const threadMessages = shallowRef<ChatMessage[]>(
   route.query.q ? JSON.parse(route.query.q as string) : [],
 );
 
+const conversationId = ref<string>();
 const newMessage = ref("");
 const loading = ref(false);
 
@@ -39,13 +40,22 @@ const sendMessage = async () => {
     ];
     threadMessages.value = newThreadMessages;
     const res = await apiClient.api.chat.post({
+      conversationId: conversationId.value,
       messages: newThreadMessages,
       model: "gemini-2.0-flash",
     });
     if (res.error) throw res.error;
 
-    threadMessages.value = res.data;
-    router.replace({ query: { q: JSON.stringify(res.data) } });
+    threadMessages.value = res.data.messages;
+    conversationId.value = res.data.id;
+
+    router.replace({
+      query: {
+        q: JSON.stringify(
+          res.data.messages.map(({ id: _, ...message }) => message),
+        ),
+      },
+    });
     newMessage.value = "";
   } catch (err) {
     console.error(err);

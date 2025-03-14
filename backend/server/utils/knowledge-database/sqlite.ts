@@ -3,17 +3,24 @@ import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
-import consola from "consola";
 import * as schema from "../../db/sqlite/schema";
 import { eq } from "drizzle-orm";
 import env from "../env";
+import { logStartupInfo } from "../log";
 
 const { messages, conversations } = schema;
 
 export async function createSqliteKnowledgeDatabase(): Promise<KnowledgeDatabase> {
   const file = env.DATABASE_SQLITE_PATH;
-  await mkdir(dirname(file), { recursive: true });
 
+  logStartupInfo("Database", [
+    [
+      { key: "type", value: "sqlite", color: "blue" },
+      { key: "path", value: file, color: "cyan" },
+    ],
+  ]);
+
+  await mkdir(dirname(file), { recursive: true });
   const db = drizzle(file, {
     casing: "snake_case",
     schema,
@@ -75,6 +82,7 @@ export async function createSqliteKnowledgeDatabase(): Promise<KnowledgeDatabase
           .values(insertValue)
           .onConflictDoUpdate({
             target: messages.id,
+            setWhere: eq(messages.conversationId, conversationId),
             set: {
               role: updateValues.role,
               content: updateValues.content,

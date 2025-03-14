@@ -80,7 +80,7 @@ export function aiServiceRow(apiKeyEnvVar: keyof typeof env): StartupInfoRow {
     },
     {
       key: "apiKey",
-      value: "<REDACTED>",
+      value: env[apiKeyEnvVar] ? "<REDACTED>" : "",
       color: "dim",
     },
   ];

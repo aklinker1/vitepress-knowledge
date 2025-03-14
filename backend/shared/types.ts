@@ -34,6 +34,23 @@ export const ChatMessage = t.Object(
 );
 export type ChatMessage = typeof ChatMessage.static;
 
+export const Conversation = t.Object(
+  {
+    id: t.String(),
+    messages: t.Array(ChatMessage),
+  },
+  {
+    examples: [
+      {
+        id: "123",
+        model: { name: "Google Gemini 2.0 Flash", enum: "gemini-2.0-flash" },
+        messages: [{ role: "user", content: "Your question here..." }],
+      },
+    ],
+  },
+);
+export type Conversation = typeof Conversation.static;
+
 export const PostChatRequestBody = t.Object({
   model: t.String({ examples: ["gemini-2.0-flash"] }),
   conversationId: t.Optional(t.String()),
