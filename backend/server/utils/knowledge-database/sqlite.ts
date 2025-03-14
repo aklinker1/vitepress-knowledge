@@ -4,9 +4,10 @@ import { dirname } from "node:path";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import * as schema from "../../db/sqlite/schema";
-import { eq } from "drizzle-orm";
+import { eq, lt, sql } from "drizzle-orm";
 import env from "../env";
 import { logStartupInfo } from "../log";
+import { Cron } from "croner";
 
 const { messages, conversations } = schema;
 
@@ -26,10 +27,36 @@ export async function createSqliteKnowledgeDatabase(): Promise<KnowledgeDatabase
     schema,
     // Uncomment to log SQL queries
     // logger: {
-    //   logQuery: consola.withTag("sqlite").debug,
+    //   logQuery: console.debug,
     // },
   });
+
   migrate(db, { migrationsFolder: "server/drizzle/sqlite" });
+  db.run(`
+    PRAGMA foreign_keys = ON;
+    PRAGMA journal_mode = WAL;
+    PRAGMA synchronous = NORMAL;
+  `);
+
+  // Setup jobs
+
+  // Daily vacuum to minimize the database
+  new Cron("@daily", () => db.run("VACUUM"));
+  // Delete old conversations (30 days)
+  new Cron(
+    "@daily",
+    async () =>
+      await db
+        .delete(conversations)
+        .where(
+          lt(
+            sql`date(${conversations.createdAt})`,
+            sql`date('now', '-30 days')`,
+          ),
+        ),
+  );
+
+  // Build KnowledgeDatabase abstraction
 
   const database: KnowledgeDatabase = {
     conversations: {
