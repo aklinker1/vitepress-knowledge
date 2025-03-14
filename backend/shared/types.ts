@@ -31,6 +31,7 @@ export type AiModelEnum = typeof AiModelEnum.static;
 
 export const ChatMessage = t.Object(
   {
+    id: t.Optional(t.String()),
     role: t.UnionEnum(["user", "assistant"], {
       description: "Who sent the message.",
     }),
@@ -46,6 +47,7 @@ export type ChatMessage = typeof ChatMessage.static;
 
 export const PostChatRequestBody = t.Object({
   model: AiModelEnum,
+  conversationId: t.Optional(t.String()),
   messages: t.Array(ChatMessage),
 });
 export type PostChatRequestBody = typeof PostChatRequestBody.static;

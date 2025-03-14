@@ -1,2 +1,4 @@
 *
 !.output
+!server/drizzle
+server/drizzle/meta

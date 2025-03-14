@@ -45,6 +45,12 @@ const app = new Elysia()
 
 consola.info("Resolved Environment Variables");
 consola.info(`  ${pc.dim("PORT=")}${pc.cyan(env.PORT)}`);
+consola.info(`  ${pc.dim("DATABASE_TYPE=")}${pc.cyan(env.DATABASE_TYPE)}`);
+if (env.DATABASE_TYPE === "sqlite") {
+  consola.info(
+    `  ${pc.dim("DATABASE_SQLITE_PATH=")}${pc.cyan(env.DATABASE_SQLITE_PATH)}`,
+  );
+}
 consola.info(`  ${pc.dim("APP_NAME=")}${pc.cyan(env.APP_NAME)}`);
 consola.info(`  ${pc.dim("BRAND_COLOR=")}${pc.cyan(env.BRAND_COLOR)}`);
 consola.info(

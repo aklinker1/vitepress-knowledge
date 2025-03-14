@@ -9,6 +9,12 @@ const GEMINI_2_0_FLASH = process.env.GEMINI_2_0_FLASH === "true";
 const CLAUDE_3_5_SONNET = process.env.CLAUDE_3_5_SONNET === "true";
 const CLAUDE_3_5_HAIKU = process.env.CLAUDE_3_5_HAIKU === "true";
 
+// Database
+
+const DATABASE_TYPE = process.env.DATABASE_TYPE?.trim() || "sqlite";
+const DATABASE_SQLITE_PATH =
+  process.env.DATABASE_SQLITE_PATH?.trim() || "data/knowledge.db";
+
 // Config
 
 const PORT = Number(process.env.PORT) || 5174;
@@ -45,6 +51,8 @@ export default {
   GEMINI_2_0_FLASH,
   CLAUDE_3_5_SONNET,
   CLAUDE_3_5_HAIKU,
+  DATABASE_TYPE,
+  DATABASE_SQLITE_PATH,
   PORT,
   APP_NAME,
   BRAND_COLOR,

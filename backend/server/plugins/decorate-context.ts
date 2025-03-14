@@ -1,6 +1,9 @@
 import { Elysia } from "elysia";
 import { AVAILABLE_AI_MODELS, SERVICE_AUTH } from "../utils/constants";
 import env from "../utils/env";
+import { openKnowledgeDatabase } from "../utils/open-knowledge-database";
+
+const db = await openKnowledgeDatabase();
 
 export const decorateContext = new Elysia({ name: "decorate-context" })
   .decorate({
@@ -13,5 +16,6 @@ export const decorateContext = new Elysia({ name: "decorate-context" })
       ...auth,
       secret: process.env[auth.env],
     })),
+    db,
   })
   .as("plugin");
