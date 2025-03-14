@@ -10,3 +10,4 @@ yarn.lock
 *.tsbuildinfo
 .output
 data
+.DS_Store
