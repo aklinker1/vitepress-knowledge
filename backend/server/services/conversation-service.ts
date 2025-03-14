@@ -11,26 +11,15 @@ export function createConversationService(
 ): ConversationService {
   return {
     updateConversation: async (conversation) => {
-      const { messages, ...values } = conversation;
+      const { messages, ...conversationInsert } = conversation;
 
-      const existingConversation =
-        conversation.id != null
-          ? await database.conversations.get(conversation.id)
-          : null;
       const newConversation =
-        existingConversation ?? (await database.conversations.insert(values));
+        await database.conversations.getOrInsert(conversationInsert);
       const newMessages = messages
         ? await Promise.all(
-            messages.map(async (message) => {
-              const existing =
-                message.id != null
-                  ? await database.messages.get(message.id)
-                  : null;
-              return (
-                existing ??
-                (await database.messages.insert(newConversation.id, message))
-              );
-            }),
+            messages.map((message) =>
+              database.messages.getOrInsert(newConversation.id, message),
+            ),
           )
         : [];
       return {

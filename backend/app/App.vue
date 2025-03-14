@@ -52,7 +52,7 @@ const sendMessage = async () => {
     router.replace({
       query: {
         q: JSON.stringify(
-          res.data.messages.map(({ id: _, ...message }) => message),
+          res.data.messages.map(({ id: _1, ...message }) => message),
         ),
       },
     });

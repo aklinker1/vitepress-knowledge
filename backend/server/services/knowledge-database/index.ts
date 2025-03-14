@@ -1,25 +1,34 @@
 export interface KnowledgeDatabase {
   conversations: {
     /** Get a conversation by its ID. */
-    get(
+    get: (
       id: KnowledgeDatabase.Conversation["id"],
-    ): Promise<KnowledgeDatabase.ConversationWithMessages | undefined>;
+    ) => Promise<KnowledgeDatabase.ConversationWithMessages | undefined>;
     /** Insert a conversation. */
-    insert(
+    insert: (
       conversation: KnowledgeDatabase.ConversationInsert,
-    ): Promise<KnowledgeDatabase.Conversation>;
+    ) => Promise<KnowledgeDatabase.Conversation>;
+    /** Get or insert a conversation. */
+    getOrInsert: (
+      conversation: KnowledgeDatabase.ConversationInsert,
+    ) => Promise<KnowledgeDatabase.Conversation>;
   };
 
   messages: {
     /** Get a message by its ID. */
-    get(
+    get: (
       id: KnowledgeDatabase.Message["id"],
-    ): Promise<KnowledgeDatabase.Message | undefined>;
+    ) => Promise<KnowledgeDatabase.Message | undefined>;
     /** Insert a message. */
-    insert(
+    insert: (
       conversationId: KnowledgeDatabase.Conversation["id"],
       message: KnowledgeDatabase.MessageInsert,
-    ): Promise<KnowledgeDatabase.Message>;
+    ) => Promise<KnowledgeDatabase.Message>;
+    /** Get or insert a message. */
+    getOrInsert: (
+      conversationId: KnowledgeDatabase.Conversation["id"],
+      message: KnowledgeDatabase.MessageInsert,
+    ) => Promise<KnowledgeDatabase.Message>;
   };
 }
 

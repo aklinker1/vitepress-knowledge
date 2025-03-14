@@ -72,6 +72,13 @@ export async function createSqliteKnowledgeDatabase(): Promise<KnowledgeDatabase
           .returning();
         return result;
       },
+      getOrInsert: async (conversation) => {
+        if (conversation.id != null) {
+          const existing = await database.conversations.get(conversation.id);
+          if (existing) return existing;
+        }
+        return await database.conversations.insert(conversation);
+      },
     },
     messages: {
       get: (id: string) =>
@@ -82,6 +89,13 @@ export async function createSqliteKnowledgeDatabase(): Promise<KnowledgeDatabase
           .values({ conversationId, ...message })
           .returning();
         return result;
+      },
+      getOrInsert: async (conversationId, message) => {
+        if (message.id != null) {
+          const existing = await database.messages.get(message.id);
+          if (existing) return existing;
+        }
+        return await database.messages.insert(conversationId, message);
       },
     },
   };
