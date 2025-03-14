@@ -1,5 +1,7 @@
 // Auth
 
+import { envRow, logStartupInfo } from "./log";
+
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY?.trim();
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY?.trim();
 
@@ -39,7 +41,7 @@ const WELCOME_MESSAGE =
 <p>I'm an AI assistant trained on {{ APP_NAME }}'s documentation.</p>
 <p>Ask me anything about <code>{{ APP_NAME }}</code>.</p>`;
 
-export default {
+const env = {
   GOOGLE_API_KEY,
   ANTHROPIC_API_KEY,
   GEMINI_2_0_FLASH,
@@ -56,3 +58,9 @@ export default {
   SYSTEM_PROMPT,
   WELCOME_MESSAGE,
 };
+export default env;
+
+logStartupInfo(
+  "Resolved Environment Variables",
+  Object.keys(env).map((key) => envRow(key as any)),
+);

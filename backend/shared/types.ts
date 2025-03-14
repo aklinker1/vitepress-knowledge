@@ -1,5 +1,4 @@
 import { t } from "elysia";
-import { AVAILABLE_AI_MODELS } from "../server/utils/constants";
 
 export const AiModel = t.Object(
   {
@@ -9,25 +8,15 @@ export const AiModel = t.Object(
     enum: t.String({
       description: "Enum value to be used with the API.",
     }),
-    enabled: t.Boolean(),
   },
   {
     examples: [
-      {
-        name: "Google Gemini 2.0 Flash",
-        value: "gemini-2.0-flash",
-        enabled: false,
-      },
-      { name: "Claude 3.5 Sonnet", value: "claude-3.5-sonnet", enabled: true },
+      { name: "Google Gemini 2.0 Flash", value: "gemini-2.0-flash" },
+      { name: "Claude 3.5 Sonnet", value: "claude-3.5-sonnet" },
     ],
   },
 );
 export type AiModel = typeof AiModel.static;
-
-export const AiModelEnum = t.String({
-  examples: [AVAILABLE_AI_MODELS[0].enum],
-});
-export type AiModelEnum = typeof AiModelEnum.static;
 
 export const ChatMessage = t.Object(
   {
@@ -45,7 +34,7 @@ export const ChatMessage = t.Object(
 export type ChatMessage = typeof ChatMessage.static;
 
 export const PostChatRequestBody = t.Object({
-  model: AiModelEnum,
+  model: t.String({ examples: ["gemini-2.0-flash"] }),
   messages: t.Array(ChatMessage),
 });
 export type PostChatRequestBody = typeof PostChatRequestBody.static;

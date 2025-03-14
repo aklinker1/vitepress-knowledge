@@ -9,3 +9,4 @@ yarn.lock
 *.tgz
 *.tsbuildinfo
 .output
+.DS_Store
