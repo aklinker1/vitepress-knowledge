@@ -1,21 +1,15 @@
 import { t } from "elysia";
 
-export const AiModel = t.Object(
-  {
-    name: t.String({
-      description: "Display name of LLM Model",
-    }),
-    enum: t.String({
-      description: "Enum value to be used with the API.",
-    }),
-  },
-  {
-    examples: [
-      { name: "Google Gemini 2.0 Flash", value: "gemini-2.0-flash" },
-      { name: "Claude 3.5 Sonnet", value: "claude-3.5-sonnet" },
-    ],
-  },
-);
+export const AiModel = t.Object({
+  name: t.String({
+    description: "Display name of LLM Model",
+    examples: ["Gemini 2.0 Flash"],
+  }),
+  enum: t.String({
+    description: "Enum value to be used with the API.",
+    examples: ["gemini-2.0-flash"],
+  }),
+});
 export type AiModel = typeof AiModel.static;
 
 export const ChatMessage = t.Object(
@@ -29,26 +23,15 @@ export const ChatMessage = t.Object(
     }),
   },
   {
-    examples: [{ role: "user", content: "Your question here..." }],
+    examples: [{ id: "123", role: "user", content: "Your question here..." }],
   },
 );
 export type ChatMessage = typeof ChatMessage.static;
 
-export const Conversation = t.Object(
-  {
-    id: t.String(),
-    messages: t.Array(ChatMessage),
-  },
-  {
-    examples: [
-      {
-        id: "123",
-        model: { name: "Google Gemini 2.0 Flash", enum: "gemini-2.0-flash" },
-        messages: [{ role: "user", content: "Your question here..." }],
-      },
-    ],
-  },
-);
+export const Conversation = t.Object({
+  id: t.String({ examples: ["123"] }),
+  messages: t.Array(ChatMessage),
+});
 export type Conversation = typeof Conversation.static;
 
 export const PostChatRequestBody = t.Object({

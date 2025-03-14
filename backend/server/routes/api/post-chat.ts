@@ -4,6 +4,7 @@ import env from "../../utils/env";
 import { models } from "../../plugins/models";
 import { decorateContext } from "../../plugins/decorate-context";
 import { applySystemPromptTemplateVars } from "../../utils/template-vars";
+import { Conversation, PostChatRequestBody } from "../../../shared/types";
 
 export const postChatRoute = new Elysia()
   .use(models)
@@ -38,9 +39,9 @@ export const postChatRoute = new Elysia()
         description:
           "Send messages to an AI model and return with the response.",
       },
-      body: "PostChatRequestBody",
+      body: PostChatRequestBody,
       response: {
-        200: "Conversation",
+        200: Conversation,
         400: t.String({ description: "Error message." }),
       },
     },
