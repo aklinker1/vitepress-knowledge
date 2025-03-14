@@ -28,7 +28,6 @@
     "consola": "^3.4.0",
     "drizzle-orm": "^0.40.0",
     "elysia": "^1.2.13",
-    "nanoid": "^5.1.3",
     "picocolors": "^1.1.1",
     "showdown": "^2.1.0",
     "tailwindcss": "^4.0.9",
