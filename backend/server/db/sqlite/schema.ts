@@ -7,9 +7,6 @@ export const conversations = sqliteTable("conversations", {
   createdAt: int({ mode: "timestamp_ms" })
     .notNull()
     .$defaultFn(() => new Date()),
-  updatedAt: int({ mode: "timestamp_ms" })
-    .notNull()
-    .$defaultFn(() => new Date()),
 });
 export const conversationRelations = relations(conversations, ({ many }) => ({
   messages: many(messages),
@@ -23,9 +20,6 @@ export const messages = sqliteTable(
       .notNull()
       .references(() => conversations.id),
     createdAt: int({ mode: "timestamp_ms" })
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: int({ mode: "timestamp_ms" })
       .notNull()
       .$defaultFn(() => new Date()),
     role: text({ enum: ["user", "assistant"] }).notNull(),

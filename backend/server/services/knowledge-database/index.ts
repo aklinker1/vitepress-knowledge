@@ -4,14 +4,10 @@ export interface KnowledgeDatabase {
     get(
       id: KnowledgeDatabase.Conversation["id"],
     ): Promise<KnowledgeDatabase.ConversationWithMessages | undefined>;
-    /** Insert or update a conversation. */
-    upsert(
+    /** Insert a conversation. */
+    insert(
       conversation: KnowledgeDatabase.ConversationInsert,
     ): Promise<KnowledgeDatabase.Conversation>;
-    /** Insert or update a full conversation, including its messages. */
-    saveWithMessages(
-      conversation: KnowledgeDatabase.ConversationWithMessagesInsert,
-    ): Promise<KnowledgeDatabase.ConversationWithMessages>;
   };
 
   messages: {
@@ -19,8 +15,8 @@ export interface KnowledgeDatabase {
     get(
       id: KnowledgeDatabase.Message["id"],
     ): Promise<KnowledgeDatabase.Message | undefined>;
-    /** Insert or update a message. */
-    upsert(
+    /** Insert a message. */
+    insert(
       conversationId: KnowledgeDatabase.Conversation["id"],
       message: KnowledgeDatabase.MessageInsert,
     ): Promise<KnowledgeDatabase.Message>;
@@ -34,7 +30,6 @@ export namespace KnowledgeDatabase {
   export type Conversation = {
     id: string;
     createdAt: Date;
-    updatedAt: Date;
   };
   export type ConversationWithMessagesInsert = ConversationInsert & {
     messages: KnowledgeDatabase.MessageInsert[];
@@ -53,6 +48,5 @@ export namespace KnowledgeDatabase {
     content: string;
     role: "user" | "assistant";
     createdAt: Date;
-    updatedAt: Date;
   };
 }

@@ -10,7 +10,7 @@ export const postChatRoute = new Elysia()
   .use(decorateContext)
   .post(
     "/chat",
-    async ({ body, error, aiService, db }) => {
+    async ({ body, error, aiService, conversationService }) => {
       const model = aiService.models.find((m) => m.enum === body.model);
       if (!model) {
         return error(400, "Model not found or not enabled");
@@ -28,7 +28,7 @@ export const postChatRoute = new Elysia()
         { messages: body.messages },
       );
 
-      return await db.conversations.saveWithMessages({
+      return await conversationService.updateConversation({
         id: body.conversationId,
         messages: [...body.messages, response],
       });

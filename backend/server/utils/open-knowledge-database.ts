@@ -1,6 +1,6 @@
 import env from "./env";
-import type { KnowledgeDatabase } from "./knowledge-database";
-import { createSqliteKnowledgeDatabase } from "./knowledge-database/sqlite";
+import type { KnowledgeDatabase } from "../services/knowledge-database";
+import { createSqliteKnowledgeDatabase } from "../services/knowledge-database/sqlite";
 
 export async function openKnowledgeDatabase(): Promise<KnowledgeDatabase> {
   switch (env.DATABASE_TYPE) {

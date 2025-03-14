@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "be18b023-bc88-4498-a3e0-2c9b12af49c6",
+  "id": "57cfe6bd-0c3c-4261-ba01-5d92abf8a932",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "conversations": {
@@ -16,13 +16,6 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "updated_at": {
-          "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -59,13 +52,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "role": {
           "name": "role",
           "type": "text",
@@ -84,7 +70,9 @@
       "indexes": {
         "messages_conversation_id_idx": {
           "name": "messages_conversation_id_idx",
-          "columns": ["conversation_id"],
+          "columns": [
+            "conversation_id"
+          ],
           "isUnique": false
         }
       },
@@ -93,8 +81,12 @@
           "name": "messages_conversation_id_conversations_id_fk",
           "tableFrom": "messages",
           "tableTo": "conversations",
-          "columnsFrom": ["conversation_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "conversation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
