@@ -11,7 +11,7 @@ const html = useMdToHtml(() => props.markdown);
 
 <template>
   <div
-    class="prose prose-neutral max-w-none prose-a:link dark:prose-invert flex flex-col gap-4"
+    class="prose prose-neutral max-w-none prose-a:link dark:prose-invert flex flex-col gap-4 prose-code:not-[pre>*]:before:hidden prose-code:not-[pre>*]:after:hidden prose-code:not-[pre>*]:px-1 prose-code:not-[pre>*]:py-0.5 prose-code:not-[pre>*]:text-[var(--c-brand)] prose-code:not-[pre>*]:bg-white/10 prose-code:not-[pre>*]:rounded-sm"
     v-html="html"
   />
 </template>

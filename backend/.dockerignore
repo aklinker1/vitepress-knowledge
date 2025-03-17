@@ -1,4 +1,4 @@
-*
-!.output
-!server/drizzle
-server/drizzle/meta
+node_modules
+data
+.env
+.env.*

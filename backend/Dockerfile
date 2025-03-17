@@ -2,5 +2,5 @@
 FROM oven/bun:1-alpine
 WORKDIR /usr/src/app
 COPY .output .
-USER bun
+COPY server/drizzle server/drizzle
 ENTRYPOINT [ "bun", "run", "server-entry.js" ]
