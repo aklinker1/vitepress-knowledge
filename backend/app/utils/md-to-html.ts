@@ -8,8 +8,7 @@ const renderer = markdownit({
   typographer: true,
 })
   .use(linkBaseUrlPlugin)
-  .use(linkTargetPlugin)
-  .use(removeCodeBlockBackground);
+  .use(linkTargetPlugin);
 
 export const MARKDOWN_SYNTAX_HIGHLIGHTER_READY_EVENT =
   "markdown-syntax-highlighter-ready";
@@ -85,27 +84,4 @@ function linkTargetPlugin(md: markdownit): void {
     return self.renderToken(tokens, idx, options);
   };
   md.renderer.rules.link_open = addTargetRule;
-}
-
-/**
- * Add a base URL to the docs if anchors are absolute paths.
- * "/" -> "https://wxt.dev/"
- */
-function removeCodeBlockBackground(md: markdownit): void {
-  const removeBackgroundRule: RenderRule = (
-    tokens,
-    idx,
-    options,
-    env,
-    self,
-  ) => {
-    const token = tokens[idx];
-    console.log(token);
-    // if (token.type === "fence" || token.type === "code_block") {
-    //   token.attrJoin("class", "no-background");
-    // }
-    return self.renderToken(tokens, idx, options);
-  };
-  // md.renderer.rules.fence = removeBackgroundRule;
-  md.renderer.rules.html_block = removeBackgroundRule;
 }
