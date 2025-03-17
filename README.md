@@ -64,6 +64,8 @@ services:
     image: aklinker1/vitepress-knowledge-server:latest
     ports:
       - "3000:3000"
+    volumes:
+      - /path/to/your/volume:/usr/src/app/data
     environment:
       APP_NAME: WXT
       DOMAIN: chat.wxt.dev
