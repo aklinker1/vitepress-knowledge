@@ -18,7 +18,7 @@ export const messages = sqliteTable(
     id: text().primaryKey().$defaultFn(createId),
     conversationId: text()
       .notNull()
-      .references(() => conversations.id),
+      .references(() => conversations.id, { onDelete: "cascade" }),
     createdAt: int({ mode: "timestamp_ms" })
       .notNull()
       .$defaultFn(() => new Date()),
