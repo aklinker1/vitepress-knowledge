@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { mdToHtml } from "../utils/md-to-html";
+import useMdToHtml from "../composables/useMdToHtml";
 
 const props = defineProps<{
   markdown: string;
 }>();
 
-const html = computed(() => mdToHtml(props.markdown));
+const html = useMdToHtml(() => props.markdown);
 </script>
 
 <template>
