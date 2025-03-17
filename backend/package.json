@@ -30,7 +30,6 @@
     "drizzle-orm": "^0.40.0",
     "elysia": "^1.2.13",
     "picocolors": "^1.1.1",
-    "showdown": "^2.1.0",
     "tailwindcss": "^4.0.9",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
@@ -40,7 +39,6 @@
     "@prerenderer/renderer-puppeteer": "^1.2.4",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.0.9",
-    "@types/showdown": "^2.0.6",
     "@vitejs/plugin-vue": "^5.2.1",
     "drizzle-kit": "^0.30.5",
     "puppeteer": "^24.3.0",
