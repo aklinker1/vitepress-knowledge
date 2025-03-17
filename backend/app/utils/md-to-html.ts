@@ -36,10 +36,12 @@ export const MARKDOWN_SYNTAX_HIGHLIGHTER_READY_EVENT =
       theme: "github-dark",
       transformers: [
         {
+          // The theme background conflicts with the message backgrounds, so we
+          // remove the custom background color and use Tailwind's. Only the
+          // text is affected by the theme.
           name: "vitepress-knowledge:pre-background",
           pre(node) {
             delete node.properties.style;
-            console.log(node);
           },
         },
       ],
