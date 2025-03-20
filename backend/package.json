@@ -11,7 +11,7 @@
     "gen": "bun gen:sqlite",
     "gen:sqlite": "drizzle-kit generate --dialect sqlite --schema server/db/sqlite --out server/drizzle/sqlite --casing snake_case",
     "docker:build": "bun run build && docker build -t vitepress-knowledge-server .",
-    "docker:preview": "bun run build && docker build -t vitepress-knowledge-server .",
+    "docker:preview": "echo 'TODO'",
     "docker:push": "docker tag vitepress-knowledge-server aklinker1/vitepress-knowledge-server && docker push aklinker1/vitepress-knowledge-server"
   },
   "dependencies": {
