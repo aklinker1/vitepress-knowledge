@@ -45,6 +45,7 @@ export const MARKDOWN_SYNTAX_HIGHLIGHTER_READY_EVENT =
           },
         },
       ],
+      fallbackLanguage: "plaintext",
     }),
   );
   window.dispatchEvent(
