@@ -16,7 +16,7 @@
       "name": "vitepress-knowledge-server",
       "version": "0.3.1",
       "dependencies": {
-        "@aklinker1/aframe": "^0.4.5",
+        "@aklinker1/aframe": "^0.4.6",
         "@egoist/tailwindcss-icons": "^1.9.0",
         "@elysiajs/cors": "^1.2.0",
         "@elysiajs/eden": "^1.2.0",
@@ -74,7 +74,7 @@
     },
   },
   "packages": {
-    "@aklinker1/aframe": ["@aklinker1/aframe@0.4.5", "", { "peerDependencies": { "puppeteer": "*", "vite": "*" }, "bin": { "aframe": "bin/aframe.ts" } }, "sha512-4iQFYjR1EIGuFQLxzaFI122zvvTfh6lwAwpMBtj4Ni7sHxKIadmHrVojxXj0bGtguyw0R94NuQW5P7KWxxuelw=="],
+    "@aklinker1/aframe": ["@aklinker1/aframe@0.4.6", "", { "peerDependencies": { "puppeteer": "*", "vite": "*" }, "bin": { "aframe": "bin/aframe.ts" } }, "sha512-sJ+GvP05EHu+qns/gN2D14t66xQcuZVQlejKVo5bFuKR2OPV3yyDU5UkgJMotxK8lMa8NNDlaoikqvuEbeDLEQ=="],
 
     "@aklinker1/check": ["@aklinker1/check@1.4.5", "", { "dependencies": { "@antfu/utils": "^0.7.7", "ci-info": "^4.0.0", "citty": "^0.1.6" }, "peerDependencies": { "typescript": "^5.0.0" }, "bin": { "check": "bin/check.mjs" } }, "sha512-whVpnpSK4qa4/83q22JAmxwRAEj35qYs8eIH/tX1C6rKbiwx7EL6kQVmSAhCe1NYqzoIWyOgsISdDPyHjC+h2A=="],
 
