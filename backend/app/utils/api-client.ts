@@ -1,4 +1,4 @@
-import { treaty } from "@elysiajs/eden";
-import type { app } from "../../server/main";
+import { createAppClient } from "@aklinker1/zeta/client";
+import type { App } from "../../server/main";
 
-export const apiClient = treaty<app>(location.host);
+export const apiClient = createAppClient<App>();

@@ -31,7 +31,7 @@ Two main folders and a few subdirecties of note:
 
 - `plugin/` - Contains the Vitepress plugin code for generating knowledge files and adding "Ask AI" button to the page.
 - `backend/` - Contains the standalone server that must be hosted alongside your docs site. Includes the actual chat window UI.
-   - `server/` - Server side code using [`elysia`](https://elysiajs.com)
+   - `server/` - Server side code using [`@aklinker1/zeta`](https://zeta.aklinker1.io)
    - `app/` - Frontend code for chat UI
    - `shared/` - Any shared utils or types used by both the `server/` and `app/` directories.
 

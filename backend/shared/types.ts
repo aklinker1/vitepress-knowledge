@@ -1,42 +1,33 @@
-import { t } from "elysia";
+import { z } from "zod";
 
-export const AiModel = t.Object({
-  name: t.String({
-    description: "Display name of LLM Model",
-    examples: ["Gemini 2.0 Flash"],
-  }),
-  enum: t.String({
-    description: "Enum value to be used with the API.",
-    examples: ["gemini-2.0-flash"],
-  }),
+export const AiModel = z
+  .object({
+    name: z.string().describe("Display name of LLM Model"),
+    enum: z.string().describe("Enum value to be used with the API."),
+  })
+  .meta({ ref: "AiModel" });
+export type AiModel = z.infer<typeof AiModel>;
+
+export const ChatMessage = z
+  .object({
+    id: z.string().optional(),
+    role: z.enum(["user", "assistant"]).describe("Who sent the message."),
+    content: z.string().describe("The message contents being sent."),
+  })
+  .meta({ ref: "ChatMessage" });
+export type ChatMessage = z.infer<typeof ChatMessage>;
+
+export const Conversation = z
+  .object({
+    id: z.string(),
+    messages: z.array(ChatMessage),
+  })
+  .meta({ ref: "Conversation" });
+export type Conversation = z.infer<typeof Conversation>;
+
+export const PostChatRequestBody = z.object({
+  model: z.string(),
+  conversationId: z.string().optional(),
+  messages: z.array(ChatMessage),
 });
-export type AiModel = typeof AiModel.static;
-
-export const ChatMessage = t.Object(
-  {
-    id: t.Optional(t.String()),
-    role: t.UnionEnum(["user", "assistant"], {
-      description: "Who sent the message.",
-    }),
-    content: t.String({
-      description: "The message contents being sent.",
-    }),
-  },
-  {
-    examples: [{ id: "123", role: "user", content: "Your question here..." }],
-  },
-);
-export type ChatMessage = typeof ChatMessage.static;
-
-export const Conversation = t.Object({
-  id: t.String({ examples: ["123"] }),
-  messages: t.Array(ChatMessage),
-});
-export type Conversation = typeof Conversation.static;
-
-export const PostChatRequestBody = t.Object({
-  model: t.String({ examples: ["gemini-2.0-flash"] }),
-  conversationId: t.Optional(t.String()),
-  messages: t.Array(ChatMessage),
-});
-export type PostChatRequestBody = typeof PostChatRequestBody.static;
+export type PostChatRequestBody = z.infer<typeof PostChatRequestBody>;

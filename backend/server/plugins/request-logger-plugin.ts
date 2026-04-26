@@ -1,14 +1,14 @@
 import { consola } from "consola";
-import { Elysia } from "elysia";
+import { createApp } from "@aklinker1/zeta";
 import pc from "picocolors";
 
-export const requestLogger = new Elysia({
-  name: "request-logger",
-}).onRequest(({ request }) => {
-  consola.info(
-    `${pc.cyan("[http]")} ${getRequestColor(request.method)(request.method)} ${request.url}`,
-  );
-});
+export const requestLoggerPlugin = createApp()
+  .onGlobalRequest(({ request }) => {
+    consola.info(
+      `${pc.cyan("[http]")} ${getRequestColor(request.method)(request.method)} ${request.url}`,
+    );
+  })
+  .export();
 
 function getRequestColor(method: string) {
   switch (method.toUpperCase()) {

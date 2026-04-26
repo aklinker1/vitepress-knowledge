@@ -6,19 +6,21 @@ export interface ConversationService {
   ) => Promise<KnowledgeDatabase.ConversationWithMessages>;
 }
 
-export function createConversationService(
-  database: KnowledgeDatabase,
-): ConversationService {
+export function createConversationService({
+  db,
+}: {
+  db: KnowledgeDatabase;
+}): ConversationService {
   return {
     updateConversation: async (conversation) => {
       const { messages, ...conversationInsert } = conversation;
 
       const newConversation =
-        await database.conversations.getOrInsert(conversationInsert);
+        await db.conversations.getOrInsert(conversationInsert);
       const newMessages = messages
         ? await Promise.all(
             messages.map((message) =>
-              database.messages.getOrInsert(newConversation.id, message),
+              db.messages.getOrInsert(newConversation.id, message),
             ),
           )
         : [];

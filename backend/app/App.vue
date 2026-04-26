@@ -42,21 +42,20 @@ const sendMessage = async () => {
       { role: "user", content: content },
     ];
     threadMessages.value = newThreadMessages;
-    const res = await apiClient.api.chat.post({
-      conversationId: conversationId.value,
-      messages: newThreadMessages,
-      model: "gemini-2.0-flash",
+    const res = await apiClient.fetch("POST", "/api/chat", {
+      body: {
+        conversationId: conversationId.value,
+        messages: newThreadMessages,
+        model: "gemini-2.0-flash",
+      },
     });
-    if (res.error) throw res.error;
 
-    threadMessages.value = res.data.messages;
-    conversationId.value = res.data.id;
+    threadMessages.value = res.messages;
+    conversationId.value = res.id;
 
     router.replace({
       query: {
-        q: JSON.stringify(
-          res.data.messages.map(({ id: _1, ...message }) => message),
-        ),
+        q: JSON.stringify(res.messages.map(({ id: _, ...message }) => message)),
       },
     });
     newMessage.value = "";
@@ -81,7 +80,7 @@ const appName = APP_NAME;
 <template>
   <div class="flex flex-col h-full">
     <div
-      class="shrink-0 flex items-center gap-4 border-b-1 border-current/20 p-3 pl-4"
+      class="shrink-0 flex items-center gap-4 border-b border-current/20 p-3 pl-4"
     >
       <i class="i-heroicons-bolt-solid size-6" />
       <div class="flex gap-1 items-center">
@@ -125,7 +124,7 @@ const appName = APP_NAME;
 
     <div class="shrink-0 m-2 flex flex-col gap-2">
       <form
-        class="relative pr-0.5 bg-[var(--c-default-soft)] ring-0 ring-[var(--c-brand)] focus-within:ring-2 rounded transition"
+        class="relative pr-0.5 bg-(--c-default-soft) ring-0 ring-(--c-brand) focus-within:ring-2 rounded transition"
         @submit.prevent="sendMessage"
       >
         <textarea

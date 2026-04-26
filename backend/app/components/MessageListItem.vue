@@ -15,9 +15,9 @@ const assistantIconUrl = `url(${ASSISTANT_ICON_URL})`;
   <li
     class="py-2 px-3 rounded-lg max-w-[90%] text-sm shrink-0 relative"
     :class="{
-      'rounded-br-none user self-end bg-[var(--c-brand-soft)]':
+      'rounded-br-none user self-end bg-(--c-brand-soft)':
         message.role === 'user',
-      'rounded-bl-none assistant self-start ml-10 bg-[var(--c-default-soft)]':
+      'rounded-bl-none assistant self-start ml-10 bg-(--c-default-soft)':
         message.role === 'assistant',
     }"
   >

@@ -31,7 +31,7 @@ export const MARKDOWN_SYNTAX_HIGHLIGHTER_READY_EVENT =
     engine: createOnigurumaEngine(() => import("shiki/wasm")),
   });
   renderer.use(
-    // @ts-expect-error: highlighter type error, but it works
+    // @ts-ignore: highlighter type error, but it works
     fromHighlighter(highlighter, {
       theme: "github-dark",
       transformers: [
@@ -45,6 +45,7 @@ export const MARKDOWN_SYNTAX_HIGHLIGHTER_READY_EVENT =
           },
         },
       ],
+      // @ts-ignore: "plaintext" is fine
       fallbackLanguage: "plaintext",
     }),
   );
