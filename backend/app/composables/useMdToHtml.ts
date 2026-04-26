@@ -1,4 +1,4 @@
-import { useEventListener, computedWithControl } from "@vueuse/core";
+import { useEventListener } from "@vueuse/core";
 import {
   mdToHtml,
   MARKDOWN_SYNTAX_HIGHLIGHTER_READY_EVENT,

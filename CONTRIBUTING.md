@@ -19,6 +19,7 @@ bun dev
 Click the "Ask AI" button in the bottom right corner, and you should be able to chat with the AI!
 
 > During development, there are 3 servers running:
+>
 > 1. http://localhost:5173 - The VitePress website
 > 2. http://localhost:3000 - The Chat UI (with proxy to chat API)
 > 3. http://localhost:3001 - The Chat API
@@ -31,9 +32,9 @@ Two main folders and a few subdirecties of note:
 
 - `plugin/` - Contains the Vitepress plugin code for generating knowledge files and adding "Ask AI" button to the page.
 - `backend/` - Contains the standalone server that must be hosted alongside your docs site. Includes the actual chat window UI.
-   - `server/` - Server side code using [`@aklinker1/zeta`](https://zeta.aklinker1.io)
-   - `app/` - Frontend code for chat UI
-   - `shared/` - Any shared utils or types used by both the `server/` and `app/` directories.
+  - `server/` - Server side code using [`@aklinker1/zeta`](https://zeta.aklinker1.io)
+  - `app/` - Frontend code for chat UI
+  - `shared/` - Any shared utils or types used by both the `server/` and `app/` directories.
 
 ### Responsibilities
 
