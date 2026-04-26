@@ -6,12 +6,32 @@
 
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --c-brand: var(--c-brand-override, #5373e7);
     --c-brand-soft: color-mix(in srgb, var(--c-brand) 10%, transparent);
     --c-brand-content: var(--c-brand-content-override, white);
 
+    --c-base-content: black;
+
+    --c-bg: #ffffff;
+    --c-bg-alt: #f6f6f7;
+    --c-bg-elv: #ffffff;
+    --c-bg-soft: #f6f6f7;
+
+    --c-default: #dddde3;
+    --c-default-soft: rgba(142, 150, 170, 0.14);
+
+    --c-warning: #915930;
+    --c-warning-soft: rgba(234, 179, 8, 0.14);
+    --c-warning-content: black;
+
+    color-scheme: light;
+  }
+
+  .dark {
     --c-base-content: white;
 
     --c-bg: #1b1b1f;
@@ -25,10 +45,13 @@
     --c-warning: oklch(0.795 0.184 86.047);
     --c-warning-soft: color-mix(in srgb, var(--c-warning) 10%, transparent);
     --c-warning-content: black;
+
+    color-scheme: dark;
   }
 
   body {
     background-color: var(--c-bg);
+    color: var(--c-base-content);
   }
 }
 

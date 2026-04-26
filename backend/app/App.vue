@@ -7,6 +7,9 @@ import { apiClient } from "./utils/api-client";
 import type { ChatMessage } from "../shared/types";
 import { isIframe } from "./utils/is-iframe";
 import { useRouter, useRoute } from "vue-router";
+import useParentTheme from "./composables/useParentTheme";
+
+useParentTheme();
 
 const close = () => {
   window.postMessage("vitepress-knowledge:close-modal", "*");
@@ -78,7 +81,7 @@ const appName = APP_NAME;
 <template>
   <div class="flex flex-col h-full">
     <div
-      class="shrink-0 flex items-center gap-4 border-b-1 border-black p-3 pl-4"
+      class="shrink-0 flex items-center gap-4 border-b-1 border-current/20 p-3 pl-4"
     >
       <i class="i-heroicons-bolt-solid size-6" />
       <div class="flex gap-1 items-center">

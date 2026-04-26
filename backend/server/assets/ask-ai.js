@@ -141,8 +141,16 @@ function chatWindow(initialMessages) {
   if (initialMessages)
     url.searchParams.set("q", JSON.stringify(initialMessages));
   chatWindow.src = url.href;
+
+  function notifyIframeOfTheme() {
+    const htmlElement = document.documentElement;
+    const isDark = htmlElement.classList.contains("dark");
+    chatWindow.contentWindow?.postMessage({ type: "theme", isDark }, "*");
+  }
+
   chatWindow.onload = () => {
     chatWindow.classList.add("loaded");
+    notifyIframeOfTheme();
   };
 
   overlay.append(chatWindow);
