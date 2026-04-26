@@ -6,7 +6,7 @@
     "backend"
   ],
   "scripts": {
-    "check": "bun run --cwd plugin build && bun tsc -b && bun --cwd plugin check --binDir ../node_modules/.bin && bun --cwd backend check --binDir ../node_modules/.bin",
+    "check": "bun run --cwd plugin build && bun tsc -b && bun --cwd plugin check && bun --cwd backend check",
     "dev": "bun run --parallel docs:dev backend:dev",
     "backend:dev": "bun --cwd backend dev",
     "docs:dev": "vitepress dev docs",

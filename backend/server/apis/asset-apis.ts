@@ -1,4 +1,5 @@
 import { createApp } from "@aklinker1/zeta";
+// @ts-expect-error: Ignore lack of declaration file
 import askAiJsTemplate from "../assets/ask-ai.js" with { type: "text" };
 import privacyPolicy from "../assets/privacy-policy.md" with { type: "text" };
 import { applyAppTemplateVars } from "../utils/template-vars.js";

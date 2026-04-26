@@ -45,9 +45,9 @@
     "yaml": "^2.7.0"
   },
   "devDependencies": {
-    "@aklinker1/check": "^1.4.5",
+    "@aklinker1/check": "^2.4.0",
     "publint": "^0.3.1",
-    "typescript": "^5.0.0",
+    "typescript": "^6.0.3",
     "vitepress": "^1.5.0"
   },
   "peerDependencies": {
