@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/aklinker1/vitepress-knowledge.git"
   },
+  "homepage": "https://github.com/aklinker1/vitepress-knowledge",
+  "bugs": {
+    "url": "https://github.com/aklinker1/vitepress-knowledge/issues"
+  },
   "keywords": [
     "vitepress",
     "vitepress-plugin",
