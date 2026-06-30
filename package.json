@@ -23,5 +23,8 @@
     "oxlint": "^0.15.5",
     "prettier": "^3.4.2",
     "typescript": "^5.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/aklinker1/vitepress-knowledge/issues"
   }
 }
